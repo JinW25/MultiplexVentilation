@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<!--This section display the simulated actual co-ventilation setting, and the estimated ventilator graphs-->
+ {% if Ptab != False %}
+    <div class="col-md-12">
+        <div class="content-section">
+            {{ Ptab }}
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="content-section">
+            {{ PMV }}
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="content-section">
+            {{ Pset }}
+        </div>
+    </div>
+{% endif %}
+
+{% endblock content %}

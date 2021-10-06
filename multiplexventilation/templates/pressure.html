@@ -1,0 +1,364 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="col-md-12">
+        <h2>Pressure Control Mode</h2>
+        <!-- This part will appear after the simulation with single compartment model. It presents a form for user to enter the information of the second patient -->
+        {% if P1_graph != False %}
+            <form method="POST" action="{{url_for('PCmode.pair_patient')}}">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group"> 
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <!-- Side navigation -->
+                    <div class="sidenav">
+                        <div class="col-md-10">
+                            <legend class="border-bottom mb-4">Pairing Patient</legend>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                {{ pairingform.W.label(class="form-control-label") }}
+                                {% if pairingform.W.errors %}
+                                    {{ pairingform.W(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in pairingform.W.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ pairingform.W(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                {{ pairingform.E.label(class="form-control-label") }}
+                                {% if pairingform.E.errors %}
+                                    {{ pairingform.E(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in pairingform.E.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ pairingform.E(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                {{ pairingform.R.label(class="form-control-label") }}
+                                {% if pairingform.R.errors %}
+                                    {{ pairingform.R(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in pairingform.R.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ pairingform.R(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <legend class="border-bottom mb-4">Ventilator</legend>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                {{ pairingform.Rc.label(class="form-control-label") }}
+                                {% if pairingform.Rc.errors %}
+                                    {{ pairingform.Rc(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in pairingform.Rc.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ pairingform.Rc(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                {{ pairingform.confirm(class="btn btn-outline-info") }}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        {% endif %}
+        <!--Side nav ends-->
+
+
+        <!-- Main body of the form for ventiltor setting and patients' information-->
+        <div class="content-section-pressure">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Ventilator Settings</legend>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    {{ form.RR.label(class="form-control-label") }}
+                                    {% if form.RR.errors %}
+                                        {{ form.RR(class="form-control form-control-lg is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.RR.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.RR(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                {{ form.PEEP.label(class="form-control-label") }}
+                                {% if form.PEEP.errors %}
+                                    {{ form.PEEP(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.PEEP.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.PEEP(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                {{ form.PIP.label(class="form-control-label") }}
+                                {% if form.PIP.errors %}
+                                    {{ form.PIP(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.PIP.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.PIP(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                {{ form.I_E.label(class="form-control-label") }}
+                                {% if form.I_E.errors %}
+                                    {{ form.I_E(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.I_E.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.I_E(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <legend class="border-bottom mb-4">Current Patient</legend>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ form.PatientName.label(class="form-control-label") }}
+                                {% if form.PatientName.errors %}
+                                    {{ form.PatientName(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.PatientName.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.PatientName(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ form.weight.label(class="form-control-label") }}
+                                {% if form.weight.errors %}
+                                    {{ form.weight(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.weight.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.weight(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ form.elastance.label(class="form-control-label") }}
+                                {% if form.elastance.errors %}
+                                    {{ form.elastance(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.elastance.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.elastance(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ form.resistance.label(class="form-control-label") }}
+                                {% if form.resistance.errors %}
+                                    {{ form.resistance(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.resistance.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.resistance(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>            
+                    <legend class="border-bottom mb-4">Pairing Patients</legend>
+                    <a id=addButton><button type="button" class="btn btn-info addButton" data-toggle="modal" data-target='#mymodal'>Add Patient</button></a>
+                </fieldset>
+                <div  class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-hover table-dark">
+                    <!--The starting section for pairing patients table-->
+                        <thead>
+                            <tr>
+                                <th>Weight (kg)</th>
+                                <th>Elastance (cmH2O/L)</th>
+                                <th>Resistance (cmH2O.s/L)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        {% for row in candidates%}
+                        <div id = "candidateSection{{row.id}}">
+                            <tr>
+                                <th>{{row.weight}}</th>
+                                <th>{{row.elastance}}</th>
+                                <th>{{row.resistance}}</th>
+                                <th>
+                                    <a href="{{url_for("PCmode.delete_candidate", row_id=row.id)}}" onclick="return confirm('Are You Sure To Delete?')" ><button type="button" class="btn btn-danger deleteButton">Delete</button></a>
+                                </th>
+                            </tr>
+                        </div>
+                        {% endfor %}
+                    </table>
+                </div>
+                <!--End of the table-->
+
+                <br>
+                <div class="form-group">
+                <a id=submitButton>{{ form.submit(class="btn btn-outline-info") }}</a>
+                </div> 
+            </form>
+        </div>
+    </div>
+    <!--End of the main body for the forms-->
+
+    <!-- This part shows the simulated graphs after the simulation is being executed-->
+    {% if P1_graph != False %}
+        <div class="col-md-12">
+            <div class="content-section-pressure">
+                {{ P1_graph }}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="content-section-pressure">
+                {{ Pairing_graph }}
+            </div>
+        </div>
+    {% endif %}
+    <!--End of the graphs-->
+    
+    <!--This is a modal for adding patient-->
+    <div class="modal fade bd-example-modal-lg" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Patient</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id = "candidateform" action="{{ url_for("PCmode.add_candidate" )}}" method="POST">
+                {{ candidateform.hidden_tag() }}
+                {{candidateform.csrf_token}}
+              
+                <fieldset class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ candidateform.weight2.label(class="form-control-label") }}
+                                {% if candidateform.weight2.errors %}
+                                    {{ candidateform.weight2(class="form-control form-control-lg is-invalid") }}
+                                    <div id="weight2-error" class="invalid-feedback">
+                                        {% for error in candidateform.weight2.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ candidateform.weight2(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ candidateform.E2.label(class="form-control-label") }}
+                                {% if candidateform.E2.errors %}
+                                    {{ candidateform.E2(class="form-control form-control-lg is-invalid") }}
+                                    <div id="E2-error" class="invalid-feedback">
+                                        {% for error in candidateform.E2.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ candidateform.E2(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ candidateform.R2.label(class="form-control-label") }}
+                                {% if candidateform.R2.errors %}
+                                    {{ candidateform.R2(class="form-control form-control-lg is-invalid") }}
+                                    <div id="R2-error" class="invalid-feedback">
+                                        {% for error in candidateform.R2.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ candidateform.R2(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="form-group addButton">
+                    {{ candidateform.add(class="btn btn-outline-info") }}
+                    </div>
+                </fieldset>
+            </form>
+            <div id="success-message" style="display: none;"></div>
+        </div>
+        <br>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!--End of the modal-->
+    
+
+   
+    
+{% endblock content %}
