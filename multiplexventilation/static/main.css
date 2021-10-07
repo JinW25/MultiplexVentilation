@@ -32,15 +32,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 20px;
     }
 
-.content-section-pressure {
-    background: #ffffff;
-    padding: 10px 20px;
-    border: 2px solid #dddddd;
-    border-radius: 3px;
-    margin-bottom: 20px;
-    margin-right:100px;
-
-    }
 
 .account-heading {
     font-size: 2.5rem;
@@ -73,28 +64,5 @@ h1, h2, h3, h4, h5, h6 {
 
 }
       
-.sidenav {
-    width: 200px;
-    position: fixed;
-    z-index: 1;
-    top: 140px;
-    right: 60px;
-    background: rgb(230, 227, 227);
-    overflow-x: hidden;
-    padding: 8px 0;
-  }
-  
-  .sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #000000;
-    display: block;
-  }
 
-  
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 15px;}
-  }
 
