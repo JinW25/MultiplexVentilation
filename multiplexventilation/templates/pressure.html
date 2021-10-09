@@ -139,7 +139,7 @@
                             </div>
                         </div>            
                         <legend class="border-bottom mb-4">Pairing Patients</legend>
-                        <a id=addButton><button type="button" class="btn btn-info addButton" data-toggle="modal" data-target='#mymodal'>Add Patient</button></a>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target='#mymodal'>Add Patient</button>
                     </fieldset>
                     <div  class="table-wrapper-scroll-y my-custom-scrollbar">
                         <table class="table table-hover table-dark">
@@ -272,80 +272,76 @@
 
     <!--This is a modal for adding patient-->
     <div class="modal fade bd-example-modal-lg" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Patient</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form id = "candidateform" action="{{ url_for("PCmode.add_candidate" )}}" method="POST">
-                {{ candidateform.hidden_tag() }}
-                {{ candidateform.csrf_token}}
-              
-                <fieldset class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                {{ candidateform.weight2.label(class="form-control-label") }}
-                                {% if candidateform.weight2.errors %}
-                                    {{ candidateform.weight2(class="form-control form-control-lg is-invalid") }}
-                                    <div id="weight2-error" class="invalid-feedback">
-                                        {% for error in candidateform.weight2.errors %}
-                                            <span>{{ error }}</span>
-                                        {% endfor %}
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Patient</h5>
+                </div>
+                <div class="modal-body">
+                    <form id = "candidateform" action="{{ url_for("PCmode.add_candidate" )}}" method="POST">
+                        {{ candidateform.hidden_tag() }}
+                        {{ candidateform.csrf_token}}
+                    
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        {{ candidateform.weight2.label(class="form-control-label") }}
+                                        {% if candidateform.weight2.errors %}
+                                            {{ candidateform.weight2(class="form-control form-control-lg is-invalid") }}
+                                            <div id="weight2-error" class="invalid-feedback">
+                                                {% for error in candidateform.weight2.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ candidateform.weight2(class="form-control form-control-lg") }}
+                                        {% endif %}
                                     </div>
-                                {% else %}
-                                    {{ candidateform.weight2(class="form-control form-control-lg") }}
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                {{ candidateform.E2.label(class="form-control-label") }}
-                                {% if candidateform.E2.errors %}
-                                    {{ candidateform.E2(class="form-control form-control-lg is-invalid") }}
-                                    <div id="E2-error" class="invalid-feedback">
-                                        {% for error in candidateform.E2.errors %}
-                                            <span>{{ error }}</span>
-                                        {% endfor %}
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        {{ candidateform.E2.label(class="form-control-label") }}
+                                        {% if candidateform.E2.errors %}
+                                            {{ candidateform.E2(class="form-control form-control-lg is-invalid") }}
+                                            <div id="E2-error" class="invalid-feedback">
+                                                {% for error in candidateform.E2.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ candidateform.E2(class="form-control form-control-lg") }}
+                                        {% endif %}
                                     </div>
-                                {% else %}
-                                    {{ candidateform.E2(class="form-control form-control-lg") }}
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                {{ candidateform.R2.label(class="form-control-label") }}
-                                {% if candidateform.R2.errors %}
-                                    {{ candidateform.R2(class="form-control form-control-lg is-invalid") }}
-                                    <div id="R2-error" class="invalid-feedback">
-                                        {% for error in candidateform.R2.errors %}
-                                            <span>{{ error }}</span>
-                                        {% endfor %}
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        {{ candidateform.R2.label(class="form-control-label") }}
+                                        {% if candidateform.R2.errors %}
+                                            {{ candidateform.R2(class="form-control form-control-lg is-invalid") }}
+                                            <div id="R2-error" class="invalid-feedback">
+                                                {% for error in candidateform.R2.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ candidateform.R2(class="form-control form-control-lg") }}
+                                        {% endif %}
                                     </div>
-                                {% else %}
-                                    {{ candidateform.R2(class="form-control form-control-lg") }}
-                                {% endif %}
+                                </div> 
                             </div>
-                        </div> 
-                    </div>
-                    <div class="form-group addButton">
-                    {{ candidateform.add(class="btn btn-outline-info") }}
-                    </div>
-                </fieldset>
-            </form>
-            <div id="success-message" style="display: none;"></div>
+                            <div class="form-group addButton">
+                            {{ candidateform.add(class="btn btn-outline-info") }}
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div id="success-message" style="display: none;"></div>
+            </div>
+            <br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
-        <br>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
     </div>
     <!--End of the modal-->
     
