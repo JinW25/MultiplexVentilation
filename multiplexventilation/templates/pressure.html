@@ -139,7 +139,7 @@
                             </div>
                         </div>            
                         <legend class="border-bottom mb-4">Pairing Patients</legend>
-                        <a id=addButton><button type="button" class="btn btn-info addButton" data-toggle="modal" data-target='#mymodal'>Add Patient</button></a>
+                        <a id=addButton><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target='#mymodal'>Add Patient</button></a>
                     </fieldset>
                     <div  class="table-wrapper-scroll-y my-custom-scrollbar">
                         <table class="table table-hover table-dark">
@@ -283,7 +283,7 @@
         <div class="modal-body">
             <form id = "candidateform" action="{{ url_for("PCmode.add_candidate" )}}" method="POST">
                 {{ candidateform.hidden_tag() }}
-                {{candidateform.csrf_token}}
+                {{ candidateform.csrf_token}}
               
                 <fieldset class="form-group">
                     <div class="row">
