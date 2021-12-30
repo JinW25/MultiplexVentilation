@@ -176,8 +176,8 @@ class PCPairing:
 
         # Range of Elastance and Resistance to be Simulated (Any Values larger than 0)
         # -----------------Step size can be changed here------------------------------------
-        E_range = py.arange(1, 52, 5)
-        R_range = py.arange(1, 52, 5)
+        E_range = py.arange(1, 72, 5)
+        R_range = py.arange(1, 72, 5)
         # ----------------------------------------------------------------------------------
 
         Weight = self.W
