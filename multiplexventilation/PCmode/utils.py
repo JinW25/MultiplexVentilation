@@ -487,7 +487,7 @@ class PCPairing:
             font_size=18
         )
         )
-        figPair.update_layout(yaxis=dict(
+        figPair.update_layout(yaxis_range=[1, 60], xaxis_range=[1, 60], yaxis=dict(
             tickfont=dict(size=20)),
             xaxis=dict(
             tickfont=dict(size=20))
@@ -761,7 +761,7 @@ class PCSetting:
 
         # --------------------------------Creating function for Picard Iteration-------------------------------------
         def picardI(fequation, prange, xrange, yo, precision):
-            error = 1
+            error = 5
             ytemp = yo + \
                 cumtrapz(fequation(prange, py.ones(
                     len(xrange))*yo), xrange, initial=0)
@@ -927,11 +927,6 @@ class PCSetting:
                 break
 
             Ppeak = max(Pi2)
-
-            if Ppeak >= 30:
-                Pmax = Pmax - 0.5
-                print('Peak Pressure has exceeded safety limit!')
-                break
 
             # Storing the value
             VT1 = VT1_err
